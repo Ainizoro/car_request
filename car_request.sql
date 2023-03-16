@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Feb 2023 pada 12.49
--- Versi server: 10.4.24-MariaDB
--- Versi PHP: 7.4.29
+-- Waktu pembuatan: 25 Feb 2023 pada 03.31
+-- Versi server: 10.4.27-MariaDB
+-- Versi PHP: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,18 +42,19 @@ CREATE TABLE `data` (
   `notif_supervisor` int(11) NOT NULL DEFAULT 0,
   `notif_manager` int(11) NOT NULL DEFAULT 0,
   `notif_ga` int(11) NOT NULL DEFAULT 0,
-  `notif_user` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `notif_user` int(11) NOT NULL DEFAULT 0,
+  `notif_security` int(11) NOT NULL DEFAULT 0,
+  `notif_admin` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `data`
 --
 
-INSERT INTO `data` (`id`, `nik`, `nama`, `section`, `tujuan`, `alasan`, `keberangkatan`, `status_spv`, `status_manager`, `status_ga`, `security`, `notif_supervisor`, `notif_manager`, `notif_ga`, `notif_user`) VALUES
-(1, '522125', 'aini', 'Assy', 'plan 3', 'prius', '10:45', 'diterima', 'diterima', 'diterima', NULL, 1, 1, 1, 1),
-(2, '221985', 'diana', 'Assy', 'plan 3', 'prius', '10:45', 'ditolak', 'diterima', 'ditolak', NULL, 1, 1, 1, 1),
-(3, '1234', 'Coba', 'HR', 'Tujuan', 'Alasan', '19:00', 'diterima', 'diterima', 'diterima', NULL, 1, 1, 1, 1),
-(7, '123', 'Ilham', 'CC', 'Tujuan', 'Alasan', '13:00', 'diterima', 'diterima', 'ditolak', NULL, 1, 1, 1, 1);
+INSERT INTO `data` (`id`, `nik`, `nama`, `section`, `tujuan`, `alasan`, `keberangkatan`, `status_spv`, `status_manager`, `status_ga`, `security`, `notif_supervisor`, `notif_manager`, `notif_ga`, `notif_user`, `notif_security`, `notif_admin`) VALUES
+(15, '522125', 'aini', 'Assy', 'plan 3', 'CMU', '07.15', 'diterima', 'diterima', 'Diterima', NULL, 1, 1, 1, 1, 1, 0),
+(16, '221985', 'diana', 'Assy', 'plan 3', 'alphard', '08.45', 'diterima', 'diterima', 'Diterima', NULL, 1, 1, 1, 1, 1, 0),
+(17, '522125', 'nur aini', 'Assy', 'plan 3', 'meeting', '10.00', NULL, NULL, 'Diterima', NULL, 1, 0, 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -65,27 +66,25 @@ CREATE TABLE `jadwal` (
   `id` int(200) NOT NULL,
   `plan1` varchar(200) NOT NULL,
   `plan3` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `jadwal`
 --
 
 INSERT INTO `jadwal` (`id`, `plan1`, `plan3`) VALUES
-(12, '08:45', '09:00'),
-(0, '09:45', '10:45'),
-(0, '07:15', '07:30'),
-(0, '08:45', '09:00'),
-(0, '09:45', '10:00'),
-(0, '10:45', '11:00'),
-(0, '11:45', '12:00'),
-(0, '13:00', '13:15'),
-(0, '14:00', '14:15'),
-(0, '15:00', '15:15'),
-(0, '16:00', '16:15'),
-(0, '17:30', '17:45'),
-(0, '', ''),
-(0, '', '');
+(6, '07:15', '07:30'),
+(7, '08:45', '09:00'),
+(8, '09:45', '10:00'),
+(9, '10:45', '11:00'),
+(10, '11:45', '12:00'),
+(11, '11:30  ', '11:45 '),
+(12, '13:00', '13:15'),
+(13, '13:10', '13:25'),
+(14, '14:00', '14:15'),
+(15, '15:00', '15:15'),
+(16, '16:00', '16:15'),
+(17, '17:30', '17:45');
 
 -- --------------------------------------------------------
 
@@ -95,10 +94,10 @@ INSERT INTO `jadwal` (`id`, `plan1`, `plan3`) VALUES
 
 CREATE TABLE `login` (
   `id` int(200) NOT NULL,
-  `username` varchar(200) DEFAULT NULL,
-  `password` varchar(100) DEFAULT NULL,
-  `hak_akses` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `username` varchar(200) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `hak_akses` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `login`
@@ -106,11 +105,12 @@ CREATE TABLE `login` (
 
 INSERT INTO `login` (`id`, `username`, `password`, `hak_akses`) VALUES
 (1, 'nur aini', 'sumitomo', 'admin'),
-(2, 'zoro', 'sumitomo', 'manager'),
-(3, 'imam', 'sumitomo', 'supervisor'),
-(4, 'asmuin', 'sumitomo', 'manager'),
-(5, 'zoroga', 'sumitomo', 'GA'),
-(6, 'aini', 'aini123', 'user');
+(2, 'general affairs', 'sumitomo', 'GA'),
+(3, 'general affairs', 'sumitomo', 'GA'),
+(4, 'sumitomo', 'sumitomo', 'security'),
+(5, 're', 're', 'user'),
+(6, 'asmuin', 'sumitomo', 'manager'),
+(7, 'imam', 'sumitomo', 'supervisor');
 
 --
 -- Indexes for dumped tables
@@ -120,6 +120,12 @@ INSERT INTO `login` (`id`, `username`, `password`, `hak_akses`) VALUES
 -- Indeks untuk tabel `data`
 --
 ALTER TABLE `data`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `jadwal`
+--
+ALTER TABLE `jadwal`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -136,7 +142,19 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT untuk tabel `data`
 --
 ALTER TABLE `data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT untuk tabel `jadwal`
+--
+ALTER TABLE `jadwal`
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT untuk tabel `login`
+--
+ALTER TABLE `login`
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
